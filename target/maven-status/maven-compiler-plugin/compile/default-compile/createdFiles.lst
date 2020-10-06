@@ -1,7 +1,6 @@
 Interface/MainScreen.class
 PaperMaker.class
 Interface/MainScreen$3.class
-Interface/LoginPage$5.class
 Interface/MainScreen$5.class
 Interface/Problem$1.class
 IA_TESTING.class
@@ -9,16 +8,14 @@ Interface/MainScreen$8.class
 Tests.class
 Interface/Answering$1.class
 Interface/MainScreen$6.class
-Interface/LoginPage$3.class
 Interface/MainScreen$1.class
 Interface/Problem$3.class
 Interface/Problem.class
 Interface/Answering.class
+Interface/MainScreen$9.class
 Interface/LoginPage$1.class
-Interface/LoginPage.class
 Interface/MainScreen$4.class
 Interface/Problem$2.class
-Interface/LoginPage$4.class
 Interface/MainScreen$7.class
 Invigilators.class
 Interface/LoginPage$2.class

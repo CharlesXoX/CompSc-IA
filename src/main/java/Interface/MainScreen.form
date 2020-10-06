@@ -25,7 +25,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
@@ -36,7 +36,7 @@
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel4_TestTitle" min="-2" pref="61" max="-2" attributes="0"/>
+                      <Component id="jLabel4_TestTitle" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
@@ -75,6 +75,11 @@
           <Group type="102" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
               <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="150" max="-2" attributes="0"/>
+              <Component id="jButton_Refresh" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -118,7 +123,9 @@
                   <Component id="jButton_Help" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
                   <Component id="jButton_NotePad" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="32" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jButton_Refresh" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -243,6 +250,14 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JButton()"/>
       </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton_Refresh">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Refresh"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton_RefreshMouseClicked"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

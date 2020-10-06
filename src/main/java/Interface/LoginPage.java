@@ -22,6 +22,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import java.sql.*;
 
 
 /**
@@ -128,9 +129,9 @@ public class LoginPage extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4_Response, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel4_Response, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel5_Response, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -162,8 +163,41 @@ public class LoginPage extends javax.swing.JFrame {
     private void jButton1_SignINMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1_SignINMouseClicked
         String TeacherID = jTextField1_TeacherID.getText(); 
         String Uname = jTextField2_Username.getText();
-        String excelPath = "./TeacherData/Teacherdata.xlsx";
-        String sheetName = "Sheet1";
+        //String excelPath = "./TeacherData/Teacherdata.xlsx";
+        //String sheetName = "Sheet1";
+        int equal = 0;
+        Connection myCon = null;
+        ResultSet myRs = null;
+        
+        try {
+            myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/TeacherInfo", "myuser" , "xxxx");
+            Statement myStmt = myCon.createStatement();
+            Statement myStmt2 = myCon.createStatement();
+            
+            ResultSet myRs1 = myStmt.executeQuery("select name from Teacher");
+            ResultSet myRs2 = myStmt2.executeQuery("select id from Teacher");
+            while (myRs1.next() && myRs2.next()){
+                String Namme = myRs1.getString("name");
+                String IDD = myRs2.getString("id");
+                if (Uname.equals(Namme) && TeacherID.equals(IDD)){
+                    equal = 1;
+                }  
+            }
+            if (equal == 1)
+                {
+                dispose();
+                MainScreen MS = new MainScreen(Uname);
+                MS.setVisible(true); 
+                }
+            else{jLabel5_Response.setText("Invalid");}
+                   
+
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+            
+        /*
         ExcelReadWrite excel = new ExcelReadWrite(excelPath, sheetName);
         int Row = excel.getRowCount();
         for (int i = 1; i <= Row+1; i++) {
@@ -182,11 +216,14 @@ public class LoginPage extends javax.swing.JFrame {
                 else{
                 jLabel5_Response.setText("Invalid");
                 }
+        
                   
-            } catch (IOException ex) {
-                Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception exc){
+            exc.printStackTrace();
             }   
+        
         } 
+        */
     }//GEN-LAST:event_jButton1_SignINMouseClicked
     
     
@@ -203,6 +240,7 @@ public class LoginPage extends javax.swing.JFrame {
         String name = field1.getText();
         String TID = field2.getText();
         
+        /*
         String excelPath = "./TeacherData/Teacherdata.xlsx";
         jLabel4_Response.setText(excelPath);
         
@@ -258,10 +296,66 @@ public class LoginPage extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
         }
+        */
+        
+        String Exists = "false";
+        Connection myCon = null;
+        PreparedStatement myStmt = null;
+        ResultSet myRs = null;
+        
+        try{
+             myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/TeacherInfo", "myuser" , "xxxx");
+            //create a statement 
+            
+            Statement myStmt2 = myCon.createStatement();
+            Statement myStmt3 = myCon.createStatement();
+            //Executen SQL query 
+            
+            ResultSet myRs1 = myStmt2.executeQuery("select name from Teacher");
+            while (myRs1.next()){
+                String Namme = myRs1.getString("name");
+                if (name.equals(Namme)){
+                    Exists = "true";
+                    //System.out.println("Name already exists");
+                }     
+            }
+            //System.out.println(Exists);
+            
+            ResultSet myRs3 = myStmt2.executeQuery("select id from Teacher");
+            while (myRs3.next()){
+                if (myRs3.getString("id").equals(TID)){
+                    Exists = "true";
+                    //System.out.println("Id already exists");
+                }
+            }
+            //System.out.println(Exists);
+            
+            if ("false".equals(Exists)){    
+                
+            String sql = "insert into Teacher "
+                    + " (id , name)"
+                    + " values (?,?)" ;   
+            
+            myStmt = myCon.prepareStatement("insert into Teacher (id , name) values (?,?)");
+            
+            myStmt.setString(1, TID);
+            myStmt.setString(2, name);
+                       
+            
+            myStmt.executeUpdate();
+            
+            jLabel4_Response.setText("Register Sucessed");
+            }
+            else{jLabel4_Response.setText("Register Unsucessed");}
+
+        }
+            
+        catch (Exception exc){
+        exc.printStackTrace();
+
+        }
         
         
-        
-        jLabel4_Response.setText("Register Sucessed");
     }//GEN-LAST:event_jButton3_RegisterMouseClicked
     
     /**

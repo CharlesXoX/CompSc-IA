@@ -7,7 +7,15 @@ package Interface;
 
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -25,7 +33,29 @@ public class MainScreen extends javax.swing.JFrame {
     public MainScreen(String Uname) {
         initComponents();
         jLabel3_Username.setText(Uname);
+        
         LocalDate myObj = LocalDate.now();
+        
+        Connection myCon = null;
+        PreparedStatement myStmt = null;
+        ResultSet myRs = null;
+        
+        try{
+        myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/TestInfo", "myuser" , "xxxx");
+            myStmt = myCon.prepareStatement("select Testname from test where InvRes = ? ");
+            
+            myStmt.setString(1, Uname);
+            myRs = myStmt.executeQuery();
+            
+            while (myRs.next()){
+                String Title = myRs.getString("Testname");
+                jLabel4_TestTitle.setText(Title);
+            }
+            
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -53,6 +83,7 @@ public class MainScreen extends javax.swing.JFrame {
         jButton_Problematic = new javax.swing.JButton();
         jButton_Help = new javax.swing.JButton();
         jButton_NotePad = new javax.swing.JButton();
+        jButton_Refresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -127,13 +158,20 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
 
+        jButton_Refresh.setText("Refresh");
+        jButton_Refresh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton_RefreshMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -142,7 +180,7 @@ public class MainScreen extends javax.swing.JFrame {
                                 .addComponent(jLabel6_TestRoom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4_TestTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel4_TestTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -171,6 +209,10 @@ public class MainScreen extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel7)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(150, 150, 150)
+                .addComponent(jButton_Refresh)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -206,7 +248,9 @@ public class MainScreen extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_Help, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_NotePad, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_Refresh)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -249,6 +293,30 @@ public class MainScreen extends javax.swing.JFrame {
             Pro.setVisible(true);       // TODO add your handling code here:
     }//GEN-LAST:event_jButton_ProblematicMouseClicked
 
+    private void jButton_RefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_RefreshMouseClicked
+        Connection myCon = null;
+        PreparedStatement myStmt = null;
+        ResultSet myRs = null;
+        
+        jLabel6_TestRoom.setText("909");
+        try{
+        myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/TestInfo", "myuser" , "xxxx");
+            myStmt = myCon.prepareStatement("select Testname from test where InvRes = '?' ");
+            
+            myStmt.setString(1, Uname);
+            myRs = myStmt.executeQuery();
+            
+            while (myRs.next()){
+                String Title = myRs.getString("Testname");
+                jLabel4_TestTitle.setText(Title);
+            }
+            jLabel6_TestRoom.setText("909");
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton_RefreshMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -289,6 +357,7 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JButton jButton_Help;
     private javax.swing.JButton jButton_NotePad;
     private javax.swing.JButton jButton_Problematic;
+    private javax.swing.JButton jButton_Refresh;
     private javax.swing.JButton jButton_Table;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
