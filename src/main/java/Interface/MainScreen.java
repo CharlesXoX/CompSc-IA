@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package Interface;
-//testing
+
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.Connection;
