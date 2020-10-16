@@ -5,6 +5,8 @@
  */
 package Interface;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,7 +27,7 @@ public class mysqlDriver {
         System.out.print("Enter id: ");
         String getid= sc.nextLine();
         */
-
+        
         int count = 0;
         String Exists = "false";
         Connection myCon = null;
@@ -71,7 +73,7 @@ public class mysqlDriver {
         
         
             
-            
+            /*
             myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/TestInfo", "myuser" , "xxxx");
             myStmt = myCon.prepareStatement("select Testname from test where InvRes = ? ");
            
@@ -85,7 +87,7 @@ public class mysqlDriver {
                 System.out.println(Title);
                 
             }
-            
+            */
             
             
 
@@ -146,15 +148,32 @@ public class mysqlDriver {
             }
             else{System.out.println("Already Exists");}
             
-            
+            */
             //Prsent the set results
-            Statement myStmt3 = myCon.createStatement();
+            myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/TeacherInfo", "myuser" , "xxxx");
+            Statement myStmt3;
+            myStmt3 = myCon.createStatement();
             ResultSet myRs5 = myStmt3.executeQuery("select * from Teacher");
             while (myRs5.next()){
                 System.out.println(myRs5.getString("id") + ", " + myRs5.getString("name"));
             }
-            */
-        
+            
+            Connection myCon3 = DriverManager.getConnection("jdbc:mysql://localhost:3306/TestInfo", "myuser" , "xxxx");
+            Statement myStmt4 = myCon3.createStatement();
+            ResultSet myRs6 = myStmt4.executeQuery("select Testdate from test");
+            LocalDate mytime = LocalDate.now(); // Create a date object
+            DateTimeFormatter myFormattime = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String formattedDate = mytime.format(myFormattime);
+            System.out.println(formattedDate);
+            while (myRs6.next()){
+                System.out.println(myRs6.getString("Testdate") );
+                if (myRs6.getString("Testdate")==formattedDate){
+                    System.out.println("yes");
+                } else {
+                    System.out.println("no");
+                }
+            }
+            
             
         }
         catch (Exception exc){

@@ -14,11 +14,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -34,24 +36,89 @@ public class MainScreen extends javax.swing.JFrame {
         initComponents();
         jLabel3_Username.setText(Uname);
         
-        LocalDate myObj = LocalDate.now();
+        LocalDate mytime = LocalDate.now(); // Create a date object
+        DateTimeFormatter myFormattime = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedDate = mytime.format(myFormattime);
+        jLabel3_CurrentTime.setText(formattedDate);
+        System.out.println(formattedDate);
         
         Connection myCon = null;
+        Connection myCon2 = null;
         PreparedStatement myStmt = null;
+        PreparedStatement myStmt2 = null;
+        PreparedStatement myStmt3 = null;
         ResultSet myRs = null;
+        ResultSet myRs2 = null;
+        ResultSet myRs3 = null;
+
         
         try{
-        myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/TestInfo", "myuser" , "xxxx");
+            // fill in test name
+            myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/TestInfo", "myuser" , "xxxx");
             myStmt = myCon.prepareStatement("select Testname from test where InvRes = ? ");
-            
             myStmt.setString(1, Uname);
             myRs = myStmt.executeQuery();
             
+            System.out.println("ok");
+            // check date
             while (myRs.next()){
-                String Title = myRs.getString("Testname");
-                jLabel4_TestTitle.setText(Title);
+            String Title = myRs.getString("Testname");
+            
+
+            
+            myCon2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/TestInfo", "myuser" , "xxxx");
+            myStmt3 = myCon2.prepareStatement("select Testdate from test where Testname = ?");
+            myStmt3.setString(1, Title);
+            myRs3 = myStmt3.executeQuery();
+            
+            
+            while (myRs3.next()){
+                System.out.println(formattedDate);
+                String Name = myRs3.getString("Testdate");
+                System.out.println(Name);
+                
+                if (Name.equals(formattedDate)){
+                    
+                        //String Title = myRs.getString("Testname");
+                        System.out.println("here 1");
+                        
+                        jLabel4_TestTitle.setText(Title);
+                        myStmt2 = myCon.prepareStatement("select Testtime from test where InvRes = ? ");
+                        myStmt2.setString(1, Uname);
+                        myRs2 = myStmt2.executeQuery();
+                        
+                        while (myRs2.next()){
+                            System.out.println("here 4");
+                            String Timefrom = myRs2.getString("Testtime");
+                            Pattern pattern = Pattern.compile("[^-]*");
+                            Matcher matcher = pattern.matcher(Timefrom);
+                            if (matcher.find()){
+                                jLabel3_TimeFrom.setText(matcher.group());
+                            }
+                            Pattern pattern2 = Pattern.compile("[^-]*$");
+                            Matcher matcher2 = pattern2.matcher(Timefrom);
+                            if (matcher2.find()){
+                                jLabel6_TimeTo.setText(matcher2.group());
+                            }
+                        } 
+                    
+                } 
+                else {
+                    jLabel4_TestTitle.setText("No Test Now");;
+                }
+            }
             }
             
+            
+            
+            
+            
+            
+            
+            
+            //fill in test time
+               
+        //[^-]*-
         }
         catch (SQLException ex) {
             Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
@@ -84,6 +151,7 @@ public class MainScreen extends javax.swing.JFrame {
         jButton_Help = new javax.swing.JButton();
         jButton_NotePad = new javax.swing.JButton();
         jButton_Refresh = new javax.swing.JButton();
+        jLabel3_CurrentTime = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -165,6 +233,8 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
 
+        jLabel3_CurrentTime.setText("<Current Time>");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -172,6 +242,10 @@ public class MainScreen extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3_Username)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3_CurrentTime))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -203,9 +277,8 @@ public class MainScreen extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6_TimeTo))
-                    .addComponent(jLabel3_Username))
-                .addContainerGap(39, Short.MAX_VALUE))
+                        .addComponent(jLabel6_TimeTo)))
+                .addContainerGap(26, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel7)
@@ -219,7 +292,9 @@ public class MainScreen extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3_Username)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3_Username)
+                    .addComponent(jLabel3_CurrentTime))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -250,7 +325,7 @@ public class MainScreen extends javax.swing.JFrame {
                     .addComponent(jButton_NotePad, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_Refresh)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -361,6 +436,7 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JButton jButton_Table;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3_CurrentTime;
     private javax.swing.JLabel jLabel3_TimeFrom;
     private javax.swing.JLabel jLabel3_Username;
     private javax.swing.JLabel jLabel4;

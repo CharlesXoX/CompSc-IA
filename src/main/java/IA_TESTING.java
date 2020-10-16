@@ -1,5 +1,9 @@
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -12,6 +16,7 @@ import java.util.Arrays;
  * @author charleswong
  */
 public class IA_TESTING {
+    /*
     int[] timetable;
     String[] TestToBeInvigilate;
     public IA_TESTING(){
@@ -23,10 +28,20 @@ public class IA_TESTING {
         System.out.println(Arrays.toString(new Object[]{this.timetable, this.TestToBeInvigilate}));
     }
 
-
+    */
     public static void main(String args[]){
-       IA_TESTING pop = new IA_TESTING();
-       pop.gettimetable();
-       System.out.print("hey");
+       //IA_TESTING pop = new IA_TESTING();
+       //pop.gettimetable();
+       //System.out.print("hey");
+        String Timefrom = "Happy23-opop";
+        Pattern pattern = Pattern.compile("[^-]*");
+        Matcher matcher = pattern.matcher(Timefrom);
+        if (matcher.find()){
+        System.out.println(matcher.group());
+        }
+        else{System.out.println("no");}
+        
     }
+    
 }
+        
