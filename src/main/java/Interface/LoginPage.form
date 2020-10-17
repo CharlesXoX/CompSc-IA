@@ -47,7 +47,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jTextField2_Username" max="32767" attributes="0"/>
+                              <Component id="jTextField2_Password" max="32767" attributes="0"/>
                               <Component id="jTextField1_TeacherID" pref="232" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -76,7 +76,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel3" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
-                  <Component id="jTextField2_Username" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                  <Component id="jTextField2_Password" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -110,7 +110,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="sansserif" size="18" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Username"/>
+        <Property name="text" type="java.lang.String" value="Password"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField1_TeacherID">
@@ -118,7 +118,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1_TeacherIDActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField2_Username">
+    <Component class="javax.swing.JTextField" name="jTextField2_Password">
     </Component>
     <Component class="javax.swing.JButton" name="jButton1_SignIN">
       <Properties>

@@ -27,14 +27,31 @@ import java.util.regex.Pattern;
  * @author charleswong
  */
 public class MainScreen extends javax.swing.JFrame {
-    String Uname;
+    String Tid;
     /**
      * Creates new form NewJFrame1
-     * @param Uname
+     * @param Tid
      */
-    public MainScreen(String Uname) {
+    public MainScreen(String Tid) {
         initComponents();
-        jLabel3_Username.setText(Uname);
+        
+        try {
+            Connection myConinit = DriverManager.getConnection("jdbc:mysql://localhost:3306/Teacherinfo", "myuser" , "xxxx");
+            PreparedStatement myStmtinit = null;
+            myStmtinit = myConinit.prepareStatement("select name from teacher where id = ?");
+            myStmtinit.setString(1, Tid);
+            ResultSet myRsinit = myStmtinit.executeQuery();
+            
+            // check date
+            while (myRsinit.next()){
+                String Uname = myRsinit.getString("name");
+                jLabel3_Username.setText(Uname);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
         
         LocalDate mytime = LocalDate.now(); // Create a date object
         DateTimeFormatter myFormattime = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -47,77 +64,76 @@ public class MainScreen extends javax.swing.JFrame {
         PreparedStatement myStmt = null;
         PreparedStatement myStmt2 = null;
         PreparedStatement myStmt3 = null;
+        PreparedStatement myStmt4 = null;
         ResultSet myRs = null;
         ResultSet myRs2 = null;
         ResultSet myRs3 = null;
-
+        ResultSet myRs4 = null;
         
         try{
             // fill in test name
             myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/TestInfo", "myuser" , "xxxx");
             myStmt = myCon.prepareStatement("select Testname from test where InvRes = ? ");
-            myStmt.setString(1, Uname);
+            myStmt.setString(1, Tid);
             myRs = myStmt.executeQuery();
             
             System.out.println("ok");
             // check date
             while (myRs.next()){
-            String Title = myRs.getString("Testname");
-            
+                String Title = myRs.getString("Testname");
 
-            
-            myCon2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/TestInfo", "myuser" , "xxxx");
-            myStmt3 = myCon2.prepareStatement("select Testdate from test where Testname = ?");
-            myStmt3.setString(1, Title);
-            myRs3 = myStmt3.executeQuery();
-            
-            
-            while (myRs3.next()){
-                System.out.println(formattedDate);
-                String Name = myRs3.getString("Testdate");
-                System.out.println(Name);
-                
-                if (Name.equals(formattedDate)){
-                    
-                        //String Title = myRs.getString("Testname");
-                        System.out.println("here 1");
-                        
-                        jLabel4_TestTitle.setText(Title);
-                        myStmt2 = myCon.prepareStatement("select Testtime from test where InvRes = ? ");
-                        myStmt2.setString(1, Uname);
-                        myRs2 = myStmt2.executeQuery();
-                        
-                        while (myRs2.next()){
-                            System.out.println("here 4");
-                            String Timefrom = myRs2.getString("Testtime");
-                            Pattern pattern = Pattern.compile("[^-]*");
-                            Matcher matcher = pattern.matcher(Timefrom);
-                            if (matcher.find()){
-                                jLabel3_TimeFrom.setText(matcher.group());
+
+
+                myCon2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/TestInfo", "myuser" , "xxxx");
+                myStmt3 = myCon2.prepareStatement("select Testdate from test where Testname = ?");
+                myStmt3.setString(1, Title);
+                myRs3 = myStmt3.executeQuery();
+
+
+                while (myRs3.next()){
+                    System.out.println(formattedDate);
+                    String Name = myRs3.getString("Testdate");
+                    System.out.println(Name);
+
+                    if (Name.equals(formattedDate)){
+
+                            //String Title = myRs.getString("Testname");
+                            System.out.println("here 1");
+
+                            jLabel4_TestTitle.setText(Title);
+                            myStmt2 = myCon.prepareStatement("select Testtime from test where InvRes = ? ");
+                            myStmt2.setString(1, Tid);
+                            myRs2 = myStmt2.executeQuery();
+
+                            while (myRs2.next()){
+                                System.out.println("here 4");
+                                String Timefrom = myRs2.getString("Testtime");
+                                Pattern pattern = Pattern.compile("[^-]*");
+                                Matcher matcher = pattern.matcher(Timefrom);
+                                if (matcher.find()){
+                                    jLabel3_TimeFrom.setText(matcher.group());
+                                }
+                                Pattern pattern2 = Pattern.compile("[^-]*$");
+                                Matcher matcher2 = pattern2.matcher(Timefrom);
+                                if (matcher2.find()){
+                                    jLabel6_TimeTo.setText(matcher2.group());
+                                }
+                            } 
+
+                            myStmt4 = myCon.prepareStatement("select Testroom from test where InvRes = ? ");
+                            myStmt4.setString(1, Tid);
+                            myRs4 = myStmt4.executeQuery();
+                            while (myRs4.next()){
+                                String Testroom = myRs4.getString("Testroom");
+                                jLabel6_TestRoom.setText(Testroom);
+
                             }
-                            Pattern pattern2 = Pattern.compile("[^-]*$");
-                            Matcher matcher2 = pattern2.matcher(Timefrom);
-                            if (matcher2.find()){
-                                jLabel6_TimeTo.setText(matcher2.group());
-                            }
-                        } 
-                    
-                } 
-                else {
-                    jLabel4_TestTitle.setText("No Test Now");;
+                    }
+                    else {
+                        jLabel4_TestTitle.setText("No Test Now");;
+                    }
                 }
-            }
-            }
-            
-            
-            
-            
-            
-            
-            
-            
-            //fill in test time
-               
+            }         
         //[^-]*-
         }
         catch (SQLException ex) {
@@ -156,7 +172,6 @@ public class MainScreen extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         //String Name = Uname;
-        jLabel3_Username.setText(Uname);
 
         jLabel1.setText("You are invigilating test:");
 
@@ -369,27 +384,28 @@ public class MainScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_ProblematicMouseClicked
 
     private void jButton_RefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_RefreshMouseClicked
+        /*
         Connection myCon = null;
         PreparedStatement myStmt = null;
         ResultSet myRs = null;
         
-        jLabel6_TestRoom.setText("909");
-        try{
+        
         myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/TestInfo", "myuser" , "xxxx");
-            myStmt = myCon.prepareStatement("select Testname from test where InvRes = '?' ");
-            
-            myStmt.setString(1, Uname);
-            myRs = myStmt.executeQuery();
-            
-            while (myRs.next()){
-                String Title = myRs.getString("Testname");
-                jLabel4_TestTitle.setText(Title);
-            }
-            jLabel6_TestRoom.setText("909");
+        myStmt = myCon.prepareStatement("select Testname from test where InvRes = '?' ");
+        
+        myStmt.setString(1, Tid);
+        myRs = myStmt.executeQuery();
+        
+        while (myRs.next()){
+        String Title = myRs.getString("Testname");
+        jLabel4_TestTitle.setText(Title); 
         }
-        catch (SQLException ex) {
-            Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        jLabel6_TestRoom.setText("909");
+        */
+        String again = Tid;
+        dispose();
+        MainScreen MS = new MainScreen(again);
+        MS.setVisible(true);
     }//GEN-LAST:event_jButton_RefreshMouseClicked
 
     /**

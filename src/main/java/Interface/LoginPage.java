@@ -51,7 +51,7 @@ public class LoginPage extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTextField1_TeacherID = new javax.swing.JTextField();
-        jTextField2_Username = new javax.swing.JTextField();
+        jTextField2_Password = new javax.swing.JTextField();
         jButton1_SignIN = new javax.swing.JButton();
         jButton3_Register = new javax.swing.JButton();
         jLabel4_Response = new javax.swing.JLabel();
@@ -66,7 +66,7 @@ public class LoginPage extends javax.swing.JFrame {
         jLabel2.setText("Teacher ID");
 
         jLabel3.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel3.setText("Username");
+        jLabel3.setText("Password");
 
         jTextField1_TeacherID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,7 +120,7 @@ public class LoginPage extends javax.swing.JFrame {
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextField2_Username)
+                                .addComponent(jTextField2_Password)
                                 .addComponent(jTextField1_TeacherID, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)))))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
@@ -140,7 +140,7 @@ public class LoginPage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2_Username, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField2_Password, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1_SignIN, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -161,33 +161,42 @@ public class LoginPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1_SignINActionPerformed
     
     private void jButton1_SignINMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1_SignINMouseClicked
-        String TeacherID = jTextField1_TeacherID.getText(); 
-        String Uname = jTextField2_Username.getText();
+        String getTeacherID = jTextField1_TeacherID.getText(); 
+        String getPassword = jTextField2_Password.getText();
         //String excelPath = "./TeacherData/Teacherdata.xlsx";
         //String sheetName = "Sheet1";
         int equal = 0;
         Connection myCon = null;
-        ResultSet myRs = null;
-        
+        System.out.println(getTeacherID);
+        System.out.println(getPassword);
         try {
-            myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/TeacherInfo", "myuser" , "xxxx");
-            Statement myStmt = myCon.createStatement();
-            Statement myStmt2 = myCon.createStatement();
+            Connection myCon2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/TeacherInfo", "myuser" , "xxxx");
+            Connection myCon3 = DriverManager.getConnection("jdbc:mysql://localhost:3306/TeacherInfo", "myuser" , "xxxx");
+            //Statement myStmt = myCon.createStatement();
+            Statement myStmt2 = myCon2.createStatement();
+            Statement myStmt3 = myCon3.createStatement();
             
-            ResultSet myRs1 = myStmt.executeQuery("select name from Teacher");
+            //ResultSet myRs1 = myStmt.executeQuery("select name from Teacher");
             ResultSet myRs2 = myStmt2.executeQuery("select id from Teacher");
-            while (myRs1.next() && myRs2.next()){
-                String Namme = myRs1.getString("name");
-                String IDD = myRs2.getString("id");
-                if (Uname.equals(Namme) && TeacherID.equals(IDD)){
+            ResultSet myRs3 = myStmt3.executeQuery("select Password from Teacher");
+                  
+            while (myRs2.next() && myRs3.next()){
+                
+                String dbTID = myRs2.getString("id");
+                String dbpassword = myRs3.getString("Password");
+                
+                if (getPassword.equals(dbpassword) && getTeacherID.equals(dbTID)){
                     equal = 1;
+                    System.out.println("equal");
                 }  
             }
-            if (equal == 1)
+            if (equal == 1)                
                 {
+                
                 dispose();
-                MainScreen MS = new MainScreen(Uname);
+                MainScreen MS = new MainScreen(getTeacherID);
                 MS.setVisible(true); 
+                
                 }
             else{jLabel5_Response.setText("Invalid");}
                    
@@ -230,15 +239,19 @@ public class LoginPage extends javax.swing.JFrame {
     private void jButton3_RegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3_RegisterMouseClicked
         JTextField field1 = new JTextField();
         JTextField field2 = new JTextField();
+        JTextField field3 = new JTextField();
         int tryInt = 0;
         Object[] fields = {
-            "Username", field1,
-            "Teacher ID", field2
+            "Teacher ID", field1,
+            "Password", field2,
+            "Name", field3
         };
         
-        JOptionPane.showConfirmDialog(null,fields,"Register Username and Teacher ID",JOptionPane.OK_CANCEL_OPTION);
-        String name = field1.getText();
-        String TID = field2.getText();
+        JOptionPane.showConfirmDialog(null,fields,"Register Teacher ID and Password and Name ",JOptionPane.OK_CANCEL_OPTION);
+        String TID = field1.getText();
+        String PW = field2.getText();
+        String Nm = field3.getText();
+        
         
         /*
         String excelPath = "./TeacherData/Teacherdata.xlsx";
@@ -299,36 +312,23 @@ public class LoginPage extends javax.swing.JFrame {
         */
         
         String Exists = "false";
-        Connection myCon = null;
         PreparedStatement myStmt = null;
+        Connection myCon = null;
         ResultSet myRs = null;
         
         try{
              myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/TeacherInfo", "myuser" , "xxxx");
             //create a statement 
             
-            Statement myStmt2 = myCon.createStatement();
-            Statement myStmt3 = myCon.createStatement();
-            //Executen SQL query 
-            
-            ResultSet myRs1 = myStmt2.executeQuery("select name from Teacher");
-            while (myRs1.next()){
-                String Namme = myRs1.getString("name");
-                if (name.equals(Namme)){
+            Statement myStmt1 = myCon.createStatement();
+            //Executen SQL query            
+            myRs = myStmt1.executeQuery("select id from Teacher");
+            while (myRs.next()){
+                if (myRs.getString("id").equals(TID)){
                     Exists = "true";
-                    //System.out.println("Name already exists");
-                }     
-            }
-            //System.out.println(Exists);
-            
-            ResultSet myRs3 = myStmt2.executeQuery("select id from Teacher");
-            while (myRs3.next()){
-                if (myRs3.getString("id").equals(TID)){
-                    Exists = "true";
-                    //System.out.println("Id already exists");
+                    System.out.println("Id already exists");
                 }
             }
-            //System.out.println(Exists);
             
             if ("false".equals(Exists)){    
                 
@@ -336,10 +336,11 @@ public class LoginPage extends javax.swing.JFrame {
                     + " (id , name)"
                     + " values (?,?)" ;   
             
-            myStmt = myCon.prepareStatement("insert into Teacher (id , name) values (?,?)");
+            myStmt = myCon.prepareStatement("insert into Teacher (id , name , Password) values (?,?,?)");
             
             myStmt.setString(1, TID);
-            myStmt.setString(2, name);
+            myStmt.setString(2, Nm);
+            myStmt.setString(3, PW);
                        
             
             myStmt.executeUpdate();
@@ -403,6 +404,6 @@ public class LoginPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4_Response;
     private javax.swing.JLabel jLabel5_Response;
     private javax.swing.JTextField jTextField1_TeacherID;
-    private javax.swing.JTextField jTextField2_Username;
+    private javax.swing.JTextField jTextField2_Password;
     // End of variables declaration//GEN-END:variables
 }
