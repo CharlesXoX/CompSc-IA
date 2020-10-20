@@ -34,6 +34,7 @@ public class MainScreen extends javax.swing.JFrame {
      */
     public MainScreen(String Tid) {
         initComponents();
+        this.Tid = Tid;
         
         try {
             Connection myConinit = DriverManager.getConnection("jdbc:mysql://localhost:3306/Teacherinfo", "myuser" , "xxxx");
@@ -92,10 +93,10 @@ public class MainScreen extends javax.swing.JFrame {
 
                 while (myRs3.next()){
                     System.out.println(formattedDate);
-                    String Name = myRs3.getString("Testdate");
-                    System.out.println(Name);
+                    String Date = myRs3.getString("Testdate");
+                    System.out.println(Date);
 
-                    if (Name.equals(formattedDate)){
+                    if (Date.equals(formattedDate)){
 
                             //String Title = myRs.getString("Testname");
                             System.out.println("here 1");
@@ -228,6 +229,11 @@ public class MainScreen extends javax.swing.JFrame {
         });
 
         jButton_Help.setText("Call Help");
+        jButton_Help.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton_HelpMouseClicked(evt);
+            }
+        });
         jButton_Help.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_HelpActionPerformed(evt);
@@ -402,11 +408,21 @@ public class MainScreen extends javax.swing.JFrame {
         }
         jLabel6_TestRoom.setText("909");
         */
-        String again = Tid;
+        
+        
+        System.out.println(Tid);
         dispose();
-        MainScreen MS = new MainScreen(again);
-        MS.setVisible(true);
+        MainScreen MS2 = new MainScreen(Tid);
+        MS2.setVisible(true);
+        
     }//GEN-LAST:event_jButton_RefreshMouseClicked
+
+    private void jButton_HelpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_HelpMouseClicked
+        // TODO add your handling code here:
+        ContactList CL = new ContactList(Tid);
+        CL.setVisible(true);  
+        
+    }//GEN-LAST:event_jButton_HelpMouseClicked
 
     /**
      * @param args the command line arguments
