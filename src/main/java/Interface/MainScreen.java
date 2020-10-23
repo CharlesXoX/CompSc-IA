@@ -36,6 +36,7 @@ public class MainScreen extends javax.swing.JFrame {
         initComponents();
         this.Tid = Tid;
         
+        //set page username
         try {
             Connection myConinit = DriverManager.getConnection("jdbc:mysql://localhost:3306/Teacherinfo", "myuser" , "xxxx");
             PreparedStatement myStmtinit = null;
@@ -58,7 +59,7 @@ public class MainScreen extends javax.swing.JFrame {
         DateTimeFormatter myFormattime = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String formattedDate = mytime.format(myFormattime);
         jLabel3_CurrentTime.setText(formattedDate);
-        System.out.println(formattedDate);
+
         
         Connection myCon = null;
         Connection myCon2 = null;
@@ -78,7 +79,7 @@ public class MainScreen extends javax.swing.JFrame {
             myStmt.setString(1, Tid);
             myRs = myStmt.executeQuery();
             
-            System.out.println("ok");
+
             // check date
             while (myRs.next()){
                 String Title = myRs.getString("Testname");
@@ -99,7 +100,7 @@ public class MainScreen extends javax.swing.JFrame {
                     if (Date.equals(formattedDate)){
 
                             //String Title = myRs.getString("Testname");
-                            System.out.println("here 1");
+
 
                             jLabel4_TestTitle.setText(Title);
                             myStmt2 = myCon.prepareStatement("select Testtime from test where InvRes = ? ");
@@ -107,7 +108,7 @@ public class MainScreen extends javax.swing.JFrame {
                             myRs2 = myStmt2.executeQuery();
 
                             while (myRs2.next()){
-                                System.out.println("here 4");
+
                                 String Timefrom = myRs2.getString("Testtime");
                                 Pattern pattern = Pattern.compile("[^-]*");
                                 Matcher matcher = pattern.matcher(Timefrom);
@@ -166,7 +167,7 @@ public class MainScreen extends javax.swing.JFrame {
         jButton_Answering = new javax.swing.JButton();
         jButton_Problematic = new javax.swing.JButton();
         jButton_Help = new javax.swing.JButton();
-        jButton_NotePad = new javax.swing.JButton();
+        jButton_SendEmail = new javax.swing.JButton();
         jButton_Refresh = new javax.swing.JButton();
         jLabel3_CurrentTime = new javax.swing.JLabel();
 
@@ -240,10 +241,15 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
 
-        jButton_NotePad.setText("NotePad");
-        jButton_NotePad.addActionListener(new java.awt.event.ActionListener() {
+        jButton_SendEmail.setText("Send Email ");
+        jButton_SendEmail.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton_SendEmailMouseClicked(evt);
+            }
+        });
+        jButton_SendEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_NotePadActionPerformed(evt);
+                jButton_SendEmailActionPerformed(evt);
             }
         });
 
@@ -287,7 +293,7 @@ public class MainScreen extends javax.swing.JFrame {
                                 .addGap(42, 42, 42)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jButton_Answering, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                    .addComponent(jButton_NotePad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(jButton_SendEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(8, 8, 8)
                                 .addComponent(jButton_Problematic))))
@@ -343,7 +349,7 @@ public class MainScreen extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_Help, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_NotePad, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton_SendEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_Refresh)
                 .addContainerGap(21, Short.MAX_VALUE))
@@ -372,9 +378,9 @@ public class MainScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton_HelpActionPerformed
 
-    private void jButton_NotePadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_NotePadActionPerformed
+    private void jButton_SendEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SendEmailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_NotePadActionPerformed
+    }//GEN-LAST:event_jButton_SendEmailActionPerformed
 
     private void jButton_AnsweringMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_AnsweringMouseClicked
     dispose();
@@ -384,33 +390,11 @@ public class MainScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_AnsweringMouseClicked
 
     private void jButton_ProblematicMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_ProblematicMouseClicked
-    dispose();
-            Problem Pro = new Problem();
-            Pro.setVisible(true);       // TODO add your handling code here:
+           // TODO add your handling code here:
     }//GEN-LAST:event_jButton_ProblematicMouseClicked
 
     private void jButton_RefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_RefreshMouseClicked
-        /*
-        Connection myCon = null;
-        PreparedStatement myStmt = null;
-        ResultSet myRs = null;
-        
-        
-        myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/TestInfo", "myuser" , "xxxx");
-        myStmt = myCon.prepareStatement("select Testname from test where InvRes = '?' ");
-        
-        myStmt.setString(1, Tid);
-        myRs = myStmt.executeQuery();
-        
-        while (myRs.next()){
-        String Title = myRs.getString("Testname");
-        jLabel4_TestTitle.setText(Title); 
-        }
-        jLabel6_TestRoom.setText("909");
-        */
-        
-        
-        System.out.println(Tid);
+
         dispose();
         MainScreen MS2 = new MainScreen(Tid);
         MS2.setVisible(true);
@@ -423,6 +407,17 @@ public class MainScreen extends javax.swing.JFrame {
         CL.setVisible(true);  
         
     }//GEN-LAST:event_jButton_HelpMouseClicked
+
+    private void jButton_SendEmailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_SendEmailMouseClicked
+        // TODO add your handling code here:
+        String Testname = jLabel4_TestTitle.getText(); 
+        System.out.println("Send Mail Clicked");
+        dispose();
+        ToMail NM = new ToMail(Tid, Testname);
+        NM.setVisible(true);
+        
+       
+    }//GEN-LAST:event_jButton_SendEmailMouseClicked
 
     /**
      * @param args the command line arguments
@@ -462,9 +457,9 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JButton jButton_Answered;
     private javax.swing.JButton jButton_Answering;
     private javax.swing.JButton jButton_Help;
-    private javax.swing.JButton jButton_NotePad;
     private javax.swing.JButton jButton_Problematic;
     private javax.swing.JButton jButton_Refresh;
+    private javax.swing.JButton jButton_SendEmail;
     private javax.swing.JButton jButton_Table;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

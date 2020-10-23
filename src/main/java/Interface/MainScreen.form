@@ -55,7 +55,7 @@
                               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jButton_Answering" pref="150" max="32767" attributes="0"/>
-                                  <Component id="jButton_NotePad" max="32767" attributes="0"/>
+                                  <Component id="jButton_SendEmail" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
@@ -128,7 +128,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButton_Help" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                  <Component id="jButton_NotePad" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
+                  <Component id="jButton_SendEmail" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jButton_Refresh" min="-2" max="-2" attributes="0"/>
@@ -248,12 +248,13 @@
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JButton()"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton_NotePad">
+    <Component class="javax.swing.JButton" name="jButton_SendEmail">
       <Properties>
-        <Property name="text" type="java.lang.String" value="NotePad"/>
+        <Property name="text" type="java.lang.String" value="Send Email "/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_NotePadActionPerformed"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton_SendEmailMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_SendEmailActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JButton()"/>

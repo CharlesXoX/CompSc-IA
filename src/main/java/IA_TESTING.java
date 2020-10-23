@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
  * @author charleswong
  */
 public class IA_TESTING {
+
     /*
     int[] timetable;
     String[] TestToBeInvigilate;
@@ -40,6 +41,10 @@ public class IA_TESTING {
         System.out.println(matcher.group());
         }
         else{System.out.println("no");}
+        
+        int u = 5;
+        System.out.println(u);
+        
         
     }
     

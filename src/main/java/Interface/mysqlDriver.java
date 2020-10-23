@@ -18,15 +18,15 @@ public class mysqlDriver {
     public static void main(String[] args){
         //cd /usr/local/mysql/bin
         //./mysql -u myuser -p
-        
-        
         /*
+        
+        
         Scanner sc= new Scanner(System.in); //System.in is a standard input stream.
         System.out.print("Enter name: ");
         String getname= sc.nextLine();
         System.out.print("Enter id: ");
         String getid= sc.nextLine();
-        */
+        
         
         int count = 0;
         String Exists = "false";
@@ -37,7 +37,7 @@ public class mysqlDriver {
         PreparedStatement myStmt = null;
         ResultSet myRs = null;
         
-        try{
+        
             
             /*
             myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/TeacherInfo", "myuser" , "xxxx");
@@ -150,14 +150,15 @@ public class mysqlDriver {
             
             */
             //Prsent the set results
-            myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/TeacherInfo", "myuser" , "xxxx");
-            Statement myStmt3;
-            myStmt3 = myCon.createStatement();
-            ResultSet myRs5 = myStmt3.executeQuery("select * from Teacher");
+        try{  
+            Connection myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/TeacherInfo", "myuser" , "xxxx");
+            Statement myStmt;
+            myStmt = myCon.createStatement();
+            ResultSet myRs5 = myStmt.executeQuery("select * from Teacher");
             while (myRs5.next()){
-                System.out.println(myRs5.getString("id") + ", " + myRs5.getString("name"));
+                System.out.println(myRs5.getString("id") + ", " + myRs5.getString("name")+", " + myRs5.getString("email"));
             }
-            
+            /*
             Connection myCon3 = DriverManager.getConnection("jdbc:mysql://localhost:3306/TestInfo", "myuser" , "xxxx");
             Statement myStmt4 = myCon3.createStatement();
             ResultSet myRs6 = myStmt4.executeQuery("select Testdate from test");
@@ -173,7 +174,7 @@ public class mysqlDriver {
                     System.out.println("no");
                 }
             }
-            
+            */
             
         }
         catch (Exception exc){

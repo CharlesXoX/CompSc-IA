@@ -26,7 +26,9 @@ public class ContactList extends javax.swing.JFrame {
      */
     public ContactList(String Tid) {
         initComponents();
+        this.Tid = Tid;
         
+        System.out.println("contactok"+Tid);
         Connection myConTest = null;
         Connection myConTeacher = null;
         PreparedStatement myStmt = null;
@@ -47,11 +49,11 @@ public class ContactList extends javax.swing.JFrame {
             LocalDate mytime = LocalDate.now(); // Create a date object
             DateTimeFormatter myFormattime = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String formattedDate = mytime.format(myFormattime);
-            System.out.println("In CL");
+
             
             while(myRs.next()){
                 String Time = myRs.getString("Testdate");
-                System.out.println("Comparing");
+                //comparing
                 if(Time.equals(formattedDate)){
                     myConTeacher = DriverManager.getConnection("jdbc:mysql://localhost:3306/TeacherInfo", "myuser" , "xxxx");
                     myStmtID = myConTest.prepareStatement("select Creator from test where InvRes = ? ");

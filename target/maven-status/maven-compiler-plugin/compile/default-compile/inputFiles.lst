@@ -1,4 +1,5 @@
 /Users/charleswong/NetBeansProjects/CSIA20-21/src/main/java/Interface/MainScreen.java
+/Users/charleswong/NetBeansProjects/CSIA20-21/src/main/java/Interface/Mail.java
 /Users/charleswong/NetBeansProjects/CSIA20-21/src/main/java/Invigilators.java
 /Users/charleswong/NetBeansProjects/CSIA20-21/src/main/java/PaperMaker.java
 /Users/charleswong/NetBeansProjects/CSIA20-21/src/main/java/Interface/mysqlDriver.java
@@ -7,4 +8,5 @@
 /Users/charleswong/NetBeansProjects/CSIA20-21/src/main/java/IA_TESTING.java
 /Users/charleswong/NetBeansProjects/CSIA20-21/src/main/java/Interface/ExcelReadWrite.java
 /Users/charleswong/NetBeansProjects/CSIA20-21/src/main/java/Tests.java
-/Users/charleswong/NetBeansProjects/CSIA20-21/src/main/java/Interface/Problem.java
+/Users/charleswong/NetBeansProjects/CSIA20-21/src/main/java/Interface/ContactList.java
+/Users/charleswong/NetBeansProjects/CSIA20-21/src/main/java/Interface/ToMail.java
