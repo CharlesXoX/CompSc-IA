@@ -162,10 +162,6 @@ public class MainScreen extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel6_TimeTo = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jButton_Table = new javax.swing.JButton();
-        jButton_Answered = new javax.swing.JButton();
-        jButton_Answering = new javax.swing.JButton();
-        jButton_Problematic = new javax.swing.JButton();
         jButton_Help = new javax.swing.JButton();
         jButton_SendEmail = new javax.swing.JButton();
         jButton_Refresh = new javax.swing.JButton();
@@ -190,44 +186,6 @@ public class MainScreen extends javax.swing.JFrame {
         jLabel4.setText(":");
 
         jLabel6_TimeTo.setText("<TimeTo>");
-
-        jButton_Table.setText("Check Timetable");
-        jButton_Table.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_TableActionPerformed(evt);
-            }
-        });
-
-        jButton_Answered.setText("Answered Problem");
-        jButton_Answered.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_AnsweredActionPerformed(evt);
-            }
-        });
-
-        jButton_Answering.setText("Answering Problem");
-        jButton_Answering.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton_AnsweringMouseClicked(evt);
-            }
-        });
-        jButton_Answering.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_AnsweringActionPerformed(evt);
-            }
-        });
-
-        jButton_Problematic.setText("Problematic Question");
-        jButton_Problematic.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton_ProblematicMouseClicked(evt);
-            }
-        });
-        jButton_Problematic.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_ProblematicActionPerformed(evt);
-            }
-        });
 
         jButton_Help.setText("Call Help");
         jButton_Help.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -270,10 +228,6 @@ public class MainScreen extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3_Username)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3_CurrentTime))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel5)
@@ -283,37 +237,31 @@ public class MainScreen extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4_TestTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButton_Help, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton_Answered, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-                            .addComponent(jButton_Table, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(42, 42, 42)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton_Answering, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                    .addComponent(jButton_SendEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(jButton_Problematic))))
+                        .addComponent(jLabel3_Username)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3_CurrentTime))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3_TimeFrom)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6_TimeTo)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton_Help, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3_TimeFrom)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel6_TimeTo))
+                            .addComponent(jButton_SendEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(150, 150, 150)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton_Refresh)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(118, 118, 118))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -338,41 +286,17 @@ public class MainScreen extends javax.swing.JFrame {
                     .addComponent(jLabel6_TimeTo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton_Table, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_Problematic, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton_Answered, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_Answering, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton_Help, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_SendEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(27, 27, 27)
+                .addComponent(jButton_Help, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton_SendEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addComponent(jButton_Refresh)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton_TableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_TableActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_TableActionPerformed
-
-    private void jButton_AnsweredActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AnsweredActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_AnsweredActionPerformed
-
-    private void jButton_AnsweringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AnsweringActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_AnsweringActionPerformed
-
-    private void jButton_ProblematicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ProblematicActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_ProblematicActionPerformed
 
     private void jButton_HelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_HelpActionPerformed
         // TODO add your handling code here:
@@ -381,17 +305,6 @@ public class MainScreen extends javax.swing.JFrame {
     private void jButton_SendEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SendEmailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton_SendEmailActionPerformed
-
-    private void jButton_AnsweringMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_AnsweringMouseClicked
-    dispose();
-            Answering AnsING = new Answering();
-            AnsING.setVisible(true);        // TODO add your handling code here:
-            //ANS.setVisible(true);
-    }//GEN-LAST:event_jButton_AnsweringMouseClicked
-
-    private void jButton_ProblematicMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_ProblematicMouseClicked
-           // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_ProblematicMouseClicked
 
     private void jButton_RefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_RefreshMouseClicked
 
@@ -454,13 +367,9 @@ public class MainScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton_Answered;
-    private javax.swing.JButton jButton_Answering;
     private javax.swing.JButton jButton_Help;
-    private javax.swing.JButton jButton_Problematic;
     private javax.swing.JButton jButton_Refresh;
     private javax.swing.JButton jButton_SendEmail;
-    private javax.swing.JButton jButton_Table;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3_CurrentTime;

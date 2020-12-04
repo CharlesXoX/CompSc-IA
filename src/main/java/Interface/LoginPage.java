@@ -5,23 +5,10 @@
  */
 package Interface;
 
-import static Interface.ExcelReadWrite.sheet;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import org.apache.poi.EncryptedDocumentException;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
 import java.sql.*;
 
 
@@ -30,10 +17,6 @@ import java.sql.*;
  * @author charleswong
  */
 public class LoginPage extends javax.swing.JFrame {
-
-    /**
-     * Creates new form NewJFrame
-     */
     public LoginPage() {
         initComponents();
     }
@@ -92,6 +75,11 @@ public class LoginPage extends javax.swing.JFrame {
         jButton3_Register.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton3_RegisterMouseClicked(evt);
+            }
+        });
+        jButton3_Register.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3_RegisterActionPerformed(evt);
             }
         });
 
@@ -163,20 +151,20 @@ public class LoginPage extends javax.swing.JFrame {
     private void jButton1_SignINMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1_SignINMouseClicked
         String getTeacherID = jTextField1_TeacherID.getText(); 
         String getPassword = jTextField2_Password.getText();
-        //String excelPath = "./TeacherData/Teacherdata.xlsx";
-        //String sheetName = "Sheet1";
+        
         int equal = 0;
         Connection myCon = null;
+        
         System.out.println(getTeacherID);
         System.out.println(getPassword);
         try {
             Connection myCon2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/TeacherInfo", "myuser" , "xxxx");
             Connection myCon3 = DriverManager.getConnection("jdbc:mysql://localhost:3306/TeacherInfo", "myuser" , "xxxx");
-            //Statement myStmt = myCon.createStatement();
+            
             Statement myStmt2 = myCon2.createStatement();
             Statement myStmt3 = myCon3.createStatement();
             
-            //ResultSet myRs1 = myStmt.executeQuery("select name from Teacher");
+
             ResultSet myRs2 = myStmt2.executeQuery("select id from Teacher");
             ResultSet myRs3 = myStmt3.executeQuery("select Password from Teacher");
                   
@@ -204,35 +192,7 @@ public class LoginPage extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
-            
-        /*
-        ExcelReadWrite excel = new ExcelReadWrite(excelPath, sheetName);
-        int Row = excel.getRowCount();
-        for (int i = 1; i <= Row+1; i++) {
-            try {
-                if(Uname.equals(excel.getCellData(i,0)))
-                {
-                    if (TeacherID.equals(excel.getCellData(i,1))){
-                    dispose();
-                    MainScreen MS = new MainScreen(Uname);
-                    MS.setVisible(true);   
-                    }
-                    else{
-                    jLabel5_Response.setText("Invalid");
-                    }
-                }
-                else{
-                jLabel5_Response.setText("Invalid");
-                }
         
-                  
-            } catch (Exception exc){
-            exc.printStackTrace();
-            }   
-        
-        } 
-        */
     }//GEN-LAST:event_jButton1_SignINMouseClicked
     
     
@@ -251,65 +211,7 @@ public class LoginPage extends javax.swing.JFrame {
         String TID = field1.getText();
         String PW = field2.getText();
         String Nm = field3.getText();
-        
-        
-        /*
-        String excelPath = "./TeacherData/Teacherdata.xlsx";
-        jLabel4_Response.setText(excelPath);
-        
-         
-        Workbook workbook = null;
-        try (FileInputStream inputStream = new FileInputStream(new File(excelPath))) {
-            workbook = WorkbookFactory.create(inputStream);
-            Sheet sheet = workbook.getSheetAt(0);
-            Object[][] bookData = {
-                {name,TID}
-            };  
-            int rowCount = sheet.getLastRowNum();
-            for (Object[] aBook : bookData) {
-                Row row = sheet.createRow(++rowCount);
-                
-                int columnCount = 0;
-                
-                Cell cell = row.createCell(columnCount);
-                
-                for (Object field : aBook) {
-                    if (field instanceof String) {
-                        cell.setCellValue((String) field);
-                    } else if (field instanceof Integer) {
-                        cell.setCellValue((Integer) field);
-                    }
-                    cell = row.createCell(++columnCount);
-                }
-                
-            }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        FileOutputStream outputStream = null;
-        try {
-            outputStream = new FileOutputStream("./TeacherData/Teacherdata.xlsx");
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            workbook.write(outputStream);
-        } catch (IOException ex) {
-            Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            workbook.close();
-        } catch (IOException ex) {
-            Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            outputStream.close();
-        } catch (IOException ex) {
-            Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        */
+
         
         String Exists = "false";
         PreparedStatement myStmt = null;
@@ -358,6 +260,10 @@ public class LoginPage extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jButton3_RegisterMouseClicked
+
+    private void jButton3_RegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3_RegisterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3_RegisterActionPerformed
     
     /**
      * @param args the command line arguments
